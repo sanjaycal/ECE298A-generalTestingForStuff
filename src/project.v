@@ -37,6 +37,14 @@ module tt_um_testing_area (
       oval[7:0] <= data1 & data2;
     end else if (uio_in == 7) begin
       oval[7:0] <= data1 | data2;
+    end else if (uio_in == 7) begin
+      oval[7:0] <= data1 ^ data2;
+    end else if (uio_in == 8) begin
+      oval[7:0] <= data1 * data2;
+    end else if (uio_in == 9) begin
+      oval[7:0] <= data1;
+    end else if (uio_in == 10) begin
+      oval[7:0] <= data2;
     end else begin     
       oval[7:0] <= oval[7:0]; // Increment counter
     end

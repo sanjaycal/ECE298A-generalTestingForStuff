@@ -16,13 +16,13 @@ module tt_um_testing_area (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-  reg [7:0] data1 = 8'b0;
-  reg [7:0] data2 = 8'b0;
-  reg [7:0] output = 8'b0;
+  reg [7:0] data1;
+  reg [7:0] data2;
+  reg [7:0] oval;
 
   always @(posedge clk) begin
-    if (!rst_n) begin // If reset is active (low)
-      output[7:0] <= 0;
+    if (!rst_n) begin
+      oval[7:0] <= 0;
       data1[7:0] <= 0;
       data2[7:0] <= 0;
     end else if (uio_in == 1) begin
@@ -30,22 +30,22 @@ module tt_um_testing_area (
     end else if (uio_in == 2) begin
       data2[7:0] <= ui_in;
     end else if (uio_in == 4) begin
-      output[7:0] <= data1 + data2;
+      oval[7:0] <= data1 + data2;
     end else if (uio_in == 5) begin
-      output[7:0] <= data1 - data2;
+      oval[7:0] <= data1 - data2;
     end else if (uio_in == 6) begin
-      output[7:0] <= data1 & data2;
+      oval[7:0] <= data1 & data2;
     end else if (uio_in == 7) begin
-      output[7:0] <= data1 | data2;
+      oval[7:0] <= data1 | data2;
     end else begin     
-      output[7:0] <= output[7:0]; // Increment counter
+      oval[7:0] <= oval[7:0]; // Increment counter
     end
   end
 
 
 
   // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = output;  // Example: ou_out is the sum of ui_in and uio_in
+  assign uo_out  = oval;  // Example: ou_out is the sum of ui_in and uio_in
   assign uio_out = 0;
   assign uio_oe  = 0;
 
